@@ -211,10 +211,24 @@
       return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
     }
 
+    function isSafari() {
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    }
+
     function abrirPDF() {
       if (isMobile()) {
-        window.open('MANUAL FOXUS PRINCIPIANTE.pdf', '_blank');
+        if (isSafari()) {
+          // Safari móvil: abrir en misma pestaña
+          window.location.href = 'MANUAL FOXUS PRINCIPIANTE.pdf';
+        } else {
+          // Otros móviles: abrir en pestaña nueva
+          const nuevaVentana = window.open('MANUAL FOXUS PRINCIPIANTE.pdf', '_blank');
+          if (!nuevaVentana) {
+            alert('Por favor, permite las ventanas emergentes para abrir el documento.');
+          }
+        }
       } else {
+        // Escritorio: mostrar iframe
         const iframe = document.getElementById('visor');
         iframe.style.display = 'block';
         iframe.scrollIntoView({ behavior: 'smooth' });
@@ -222,6 +236,7 @@
     }
 
     document.getElementById('btnVer').addEventListener('click', abrirPDF);
+    document.querySelector('.preview-img').addEventListener('click', abrirPDF);
 
     // Ocultar pantalla de carga tras 3 segundos
     window.addEventListener('load', () => {
@@ -234,3 +249,4 @@
 
 </body>
 </html>
+
