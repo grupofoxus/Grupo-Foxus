@@ -6,6 +6,37 @@
   <title>Manual Formativo</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
+    /* Pantalla de carga */
+    #loader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    #loader img {
+      width: 120px;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+    .linea-animada {
+      width: 80%;
+      height: 5px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.6), rgba(255,255,255,0.1));
+      background-size: 200% 100%;
+      animation: moverLinea 1.5s linear infinite;
+      border-radius: 3px;
+    }
+    @keyframes moverLinea {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Resto estilos ya previos */
     body {
       font-family: 'Poppins', sans-serif;
       background: #000;
@@ -136,6 +167,12 @@
 </head>
 <body>
 
+  <!-- Pantalla de carga -->
+  <div id="loader">
+    <img src="logo.png" alt="Logo de carga" />
+    <div class="linea-animada"></div>
+  </div>
+
   <header>
     <h2>GRUPO FOXUS</h2>
     <div class="linea-division"></div>
@@ -164,11 +201,24 @@
   </div>
 
   <script>
+    // Mostrar iframe con PDF
     function mostrarPDF() {
       const iframe = document.getElementById('visor');
       iframe.style.display = 'block';
       iframe.scrollIntoView({ behavior: 'smooth' });
     }
+
+    // Ocultar pantalla de carga tras 3 segundos
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loader.style.display = 'none', 500);
+      }, 3000);
+    });
   </script>
+
 </body>
 </html>
+
