@@ -3,133 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Manual Formativo</title>
+  <title>Grupo Foxus - Manual Formativo</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
-    /* Pantalla de carga con fondo blanco */
-    #loader {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: #fff; /* blanco */
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #000;
-      transition: opacity 0.5s ease;
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
-    #loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-      visibility: hidden;
-    }
-    #loader img {
-      width: 120px;
-      margin-bottom: 30px;
-      user-select: none;
-    }
-    .linea-animada {
-      width: 80%;
-      height: 5px;
-      background: linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6), rgba(0,0,0,0.1));
-      background-size: 200% 100%;
-      animation: moverLinea 1.5s linear infinite;
-      border-radius: 3px;
-    }
-    @keyframes moverLinea {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Resto estilos */
     body {
       font-family: 'Poppins', sans-serif;
-      background: #000;
+      background: #fff;
       margin: 0;
       padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
       min-height: 100vh;
-      box-sizing: border-box;
+      color: #000;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      color: #fff;
     }
+
     header {
       width: 100%;
       max-width: 480px;
       text-align: center;
-      margin-bottom: 10px;
-      position: relative;
+      margin-bottom: 20px;
     }
+
     header h2 {
       margin: 0;
       font-weight: 700;
-      font-size: 1.5rem;
-      color: #fff;
+      font-size: 1.8rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      color: #000;
     }
-    .linea-division {
-      width: 100%;
+
+    .linea-horizontal {
+      width: 200px;
       height: 4px;
-      margin: 10px 0 25px 0;
-      position: relative;
-    }
-    .linea-division::before,
-    .linea-division::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-    }
-    .linea-division::before {
-      top: 0;
-      background-color: #000;
-    }
-    .linea-division::after {
-      top: 2px;
-      background-color: #fff;
+      margin: 10px auto 30px auto;
+      background: linear-gradient(to right, black 50%, white 50%);
+      border-radius: 2px;
+      background-size: 200% 100%;
     }
 
     .container {
-      background: #fff;
+      background: #000;
       max-width: 480px;
       width: 100%;
       padding: 25px 30px;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       text-align: center;
-      color: #222;
+      color: #fff;
     }
+
     h1 {
-      margin-bottom: 12px;
-      font-weight: 600;
-      font-size: 1.8rem;
-      color: #222;
+      color: #fff;
+      margin-top: 0;
     }
+
     p {
+      color: #ddd;
       font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 25px;
-      color: #444;
+      line-height: 1.4;
     }
-    .preview-img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-      margin-bottom: 25px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .preview-img:hover {
-      transform: scale(1.05);
-    }
+
     button {
-      background-color: #007bff;
+      background-color: #1a73e8;
       color: white;
       border: none;
       padding: 14px 28px;
@@ -139,17 +79,28 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+      box-shadow: 0 5px 15px rgba(26, 115, 232, 0.5);
       transition: background-color 0.3s ease;
+      margin-top: 20px;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background-color: #155ab6;
     }
-    svg {
-      width: 22px;
-      height: 22px;
-      fill: white;
+
+    .preview-img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+      margin-bottom: 25px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
+
+    .preview-img:hover {
+      transform: scale(1.05);
+    }
+
     iframe {
       width: 100%;
       height: 650px;
@@ -158,6 +109,54 @@
       border: 1px solid #ddd;
       display: none;
     }
+
+    /* Pantalla de carga */
+    #loader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 30px;
+    }
+
+    .progress-bar {
+      width: 180px;
+      height: 6px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #eee;
+      position: relative;
+    }
+
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, #000, transparent);
+      animation: slidebg 1s linear infinite;
+      border-radius: 4px;
+    }
+
+    @keyframes slidebg {
+      0% {
+        left: -40%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
     @media (max-width: 500px) {
       body {
         padding: 15px;
@@ -168,6 +167,9 @@
       iframe {
         height: 450px;
       }
+      header {
+        max-width: 90vw;
+      }
     }
   </style>
 </head>
@@ -175,78 +177,52 @@
 
   <!-- Pantalla de carga -->
   <div id="loader">
-    <img src="logo.png" alt="Logo de carga" />
-    <div class="linea-animada"></div>
+    <img src="logo.png" alt="Logo Grupo Foxus" />
+    <div class="progress-bar"></div>
   </div>
 
   <header>
     <h2>GRUPO FOXUS</h2>
-    <div class="linea-division"></div>
+    <div class="linea-horizontal" aria-hidden="true"></div>
   </header>
 
   <div class="container">
     <h1>Manual Formativo</h1>
     <p>Te esperamos mañana a la hora indicada. Haz de imprimir este documento.</p>
 
-    <img
-      src="portada.png"
-      alt="Portada del manual"
-      class="preview-img"
-      onclick="abrirPDF()"
-      title="Haz clic para ver el documento"
-    />
+    <img src="portada.png" alt="Portada Manual" class="preview-img" id="preview" />
 
-    <button id="btnVer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
-        <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-8a3 3 0 100 6 3 3 0 000-6z"/>
-      </svg>
-      Ver
+    <button id="viewBtn" aria-label="Ver documento">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="white" viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      Ver documento
     </button>
 
-    <iframe id="visor" src="MANUAL FOXUS PRINCIPIANTE.pdf"></iframe>
+    <iframe id="pdfFrame" src="MANUAL FOXUS PRINCIPIANTE.pdf" title="Documento Manual Foxus"></iframe>
   </div>
 
   <script>
-    function isMobile() {
-      return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-    }
-
-    function isSafari() {
-      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    }
-
-    function abrirPDF() {
-      if (isMobile()) {
-        if (isSafari()) {
-          // Safari móvil: abrir en misma pestaña
-          window.location.href = 'MANUAL FOXUS PRINCIPIANTE.pdf';
-        } else {
-          // Otros móviles: abrir en pestaña nueva
-          const nuevaVentana = window.open('MANUAL FOXUS PRINCIPIANTE.pdf', '_blank');
-          if (!nuevaVentana) {
-            alert('Por favor, permite las ventanas emergentes para abrir el documento.');
-          }
-        }
-      } else {
-        // Escritorio: mostrar iframe
-        const iframe = document.getElementById('visor');
-        iframe.style.display = 'block';
-        iframe.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    document.getElementById('btnVer').addEventListener('click', abrirPDF);
-    document.querySelector('.preview-img').addEventListener('click', abrirPDF);
-
-    // Ocultar pantalla de carga tras 3 segundos
     window.addEventListener('load', () => {
       setTimeout(() => {
-        const loader = document.getElementById('loader');
-        loader.classList.add('hidden');
-      }, 3000);
+        document.getElementById('loader').style.display = 'none';
+      }, 1000);
+    });
+
+    const btn = document.getElementById('viewBtn');
+    const iframe = document.getElementById('pdfFrame');
+
+    btn.addEventListener('click', () => {
+      if (iframe.style.display === 'block') {
+        iframe.style.display = 'none';
+        btn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="white" viewBox="0 0 24 24"><path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          Ver documento
+        `;
+      } else {
+        iframe.style.display = 'block';
+        btn.textContent = 'Ocultar documento';
+      }
     });
   </script>
 
 </body>
 </html>
-
