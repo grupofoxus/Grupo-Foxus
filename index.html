@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Manual Formativo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet" />
   <style>
     /* Pantalla de carga con fondo blanco */
     #loader {
@@ -42,9 +42,10 @@
       100% { background-position: -200% 0; }
     }
 
+    /* Estilos generales */
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #000;
+      font-family: 'Lexend', sans-serif;
+      background: #fff;
       margin: 0;
       padding: 20px;
       display: flex;
@@ -54,7 +55,7 @@
       box-sizing: border-box;
       flex-direction: column;
       align-items: center;
-      color: #fff;
+      color: #000;
     }
     header {
       width: 100%;
@@ -67,14 +68,14 @@
       margin: 0;
       font-weight: 700;
       font-size: 1.5rem;
-      color: #fff;
+      color: #000;
       text-transform: uppercase;
       letter-spacing: 2px;
     }
     .linea-division {
       width: 100%;
       height: 4px;
-      margin: 10px auto 25px auto;
+      margin: 10px 0 25px 0;
       position: relative;
     }
     .linea-division::before,
@@ -95,31 +96,31 @@
     }
 
     .container {
-      background: #fff;
+      background: #000;
       max-width: 480px;
       width: 100%;
       padding: 25px 30px;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       text-align: center;
-      color: #222;
+      color: #fff;
     }
     h1 {
       margin-bottom: 12px;
       font-weight: 600;
       font-size: 1.8rem;
-      color: #222;
+      color: #fff;
     }
     p {
       font-size: 1.1rem;
       line-height: 1.5;
       margin-bottom: 25px;
-      color: #444;
+      color: #eee;
     }
     .preview-img {
       max-width: 100%;
       border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
       margin-bottom: 25px;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -234,11 +235,12 @@
     document.getElementById('btnVer').addEventListener('click', abrirPDF);
     document.querySelector('.preview-img').addEventListener('click', abrirPDF);
 
+    // Ocultar pantalla de carga tras 1 segundo
     window.addEventListener('load', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
         loader.classList.add('hidden');
-      }, 1000); // 1 segundo de carga
+      }, 1000);
     });
   </script>
 
