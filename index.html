@@ -6,17 +6,23 @@
   <title>Manual Formativo</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
-    /* Pantalla de carga */
+    /* Pantalla de carga con fondo blanco */
     #loader {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: #000;
+      background: #fff; /* blanco */
       z-index: 9999;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: white;
+      color: #000;
+      transition: opacity 0.5s ease;
+    }
+    #loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
     }
     #loader img {
       width: 120px;
@@ -26,7 +32,7 @@
     .linea-animada {
       width: 80%;
       height: 5px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.6), rgba(255,255,255,0.1));
+      background: linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6), rgba(0,0,0,0.1));
       background-size: 200% 100%;
       animation: moverLinea 1.5s linear infinite;
       border-radius: 3px;
@@ -36,7 +42,7 @@
       100% { background-position: -200% 0; }
     }
 
-    /* Resto estilos ya previos */
+    /* Resto estilos */
     body {
       font-family: 'Poppins', sans-serif;
       background: #000;
@@ -186,11 +192,11 @@
       src="portada.png"
       alt="Portada del manual"
       class="preview-img"
-      onclick="mostrarPDF()"
+      onclick="abrirPDF()"
       title="Haz clic para ver el documento"
     />
 
-    <button onclick="mostrarPDF()">
+    <button id="btnVer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
         <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-8a3 3 0 100 6 3 3 0 000-6z"/>
       </svg>
@@ -201,24 +207,30 @@
   </div>
 
   <script>
-    // Mostrar iframe con PDF
-    function mostrarPDF() {
-      const iframe = document.getElementById('visor');
-      iframe.style.display = 'block';
-      iframe.scrollIntoView({ behavior: 'smooth' });
+    function isMobile() {
+      return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
     }
+
+    function abrirPDF() {
+      if (isMobile()) {
+        window.open('MANUAL FOXUS PRINCIPIANTE.pdf', '_blank');
+      } else {
+        const iframe = document.getElementById('visor');
+        iframe.style.display = 'block';
+        iframe.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    document.getElementById('btnVer').addEventListener('click', abrirPDF);
 
     // Ocultar pantalla de carga tras 3 segundos
     window.addEventListener('load', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => loader.style.display = 'none', 500);
+        loader.classList.add('hidden');
       }, 3000);
     });
   </script>
 
 </body>
 </html>
-
